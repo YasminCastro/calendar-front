@@ -4,7 +4,12 @@ import React, { useState } from "react";
 import { useCalendar } from "../../providers/calendarProvider";
 import { useReminder } from "../../providers/reminderProvider";
 import ReminderModal from "../ReminderModal";
-import { CalendarTable, DayButton, MonthContainer, Reminder } from "./styles";
+import {
+  CalendarTable,
+  DayButton,
+  MonthContainer,
+  ReminderButton,
+} from "./styles";
 
 const weekDays = [
   "Sunday",
@@ -77,9 +82,15 @@ const Calendar = () => {
 
                         if (date === fullDate) {
                           return (
-                            <Reminder color={reminder.colorHex}>
+                            <ReminderButton
+                              color={reminder.colorHex}
+                              onClick={(e) => {
+                                dateClickHandler(e.currentTarget.value);
+                              }}
+                              value={reminder._id}
+                            >
                               {reminder.message}
-                            </Reminder>
+                            </ReminderButton>
                           );
                         }
                       })}

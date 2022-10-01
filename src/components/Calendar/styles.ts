@@ -108,14 +108,16 @@ export const DayButton = styled.button`
   justify-content: center;
 `;
 
-export const Reminder = styled.div<{ color: string }>`
-  flex: 0 0 auto;
-  font-size: 13px;
+export const ReminderButton = styled.button<{ color: string }>`
+  width: 100%;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  font-size: 12px;
   border-radius: 4px;
-  padding: 5px;
+  padding: 6px;
   margin-bottom: 5px;
-  line-height: 14px;
   background: ${({ color }) => color};
   color: #ffff;
-  text-decoration: none;
 `;
