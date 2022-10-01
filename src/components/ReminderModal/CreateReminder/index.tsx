@@ -32,14 +32,14 @@ const ReminderModal: React.FC<IProps> = ({ open, setOpen, day }) => {
     try {
       setErrorMessage("");
 
-      await axios.post(`${CONFIG.BACKEND_URL}`, {
+      const { data } = await axios.post(`${CONFIG.BACKEND_URL}`, {
         message,
         date,
         colorHex: color,
         city,
       });
 
-      setRefreshReminders(message);
+      setRefreshReminders(data._id);
       setOpen(false);
     } catch (error: any) {
       const rawErrorMessage = error.response.data.message;

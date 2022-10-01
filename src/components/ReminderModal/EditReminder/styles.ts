@@ -11,8 +11,6 @@ export const CloseButton = styled.button`
   border-radius: 50%;
 `;
 
-export const ModalWrapper = styled.div``;
-
 export const ModalBox = styled.div`
   margin: 0;
   position: absolute;

@@ -8,8 +8,6 @@ export const CloseButton = styled.button`
   margin-bottom: 6px;
 `;
 
-export const ModalWrapper = styled.div``;
-
 export const ModalBox = styled.div`
   margin: 0;
   position: absolute;
