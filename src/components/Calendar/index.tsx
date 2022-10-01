@@ -33,16 +33,16 @@ const Calendar = () => {
       <CalendarTable>
         <thead>
           <tr className="weekdays">
-            {weekDays.map((day: any) => (
-              <th key={day}>{day}</th>
+            {weekDays.map((weekday: string) => (
+              <th key={weekday}>{weekday}</th>
             ))}
           </tr>
         </thead>
 
         <tbody>
-          {calendar.map((week: any) => {
+          {calendar.map((week: any, index) => {
             return (
-              <tr className="days">
+              <tr key={index} className="days">
                 {week.days.map((dayObject: any) => {
                   const day = moment(dayObject).format("DD");
                   const month = moment(dayObject).format("MM");
@@ -56,7 +56,7 @@ const Calendar = () => {
                   return (
                     <td
                       className={`date ${isThisMonth} ${isToday}`}
-                      key={`${day}-${month}`}
+                      key={fullDate}
                     >
                       <DayButton
                         onClick={(e) => {

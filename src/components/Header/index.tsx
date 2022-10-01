@@ -11,13 +11,18 @@ import {
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
 import { useCalendar } from "../../providers/calendarProvider";
+import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 
 const Header = () => {
-  const { selectedDate, setSelectedDate, today } = useCalendar();
+  const { selectedDate, setSelectedDate, today, calendar } = useCalendar();
+
+  if (calendar.length === 0) {
+    return <></>;
+  }
 
   const prevMonth = moment(selectedDate).subtract(1, "month");
   const nextMonth = moment(selectedDate).add(1, "month");
-  const month = moment(selectedDate).format("MMMM");
+  const month = moment(selectedDate).format("MMMM [of] YYYY");
 
   return (
     <HeaderWrapper>
@@ -34,7 +39,7 @@ const Header = () => {
           <MdOutlineArrowForwardIos />
         </ArrowButton>
 
-        <h2>{month}</h2>
+        <h2>{capitalizeFirstLetter(month)}</h2>
       </HeaderContainer>
     </HeaderWrapper>
   );

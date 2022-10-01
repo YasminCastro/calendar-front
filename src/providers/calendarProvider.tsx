@@ -1,4 +1,3 @@
-import "moment/locale/pt-br";
 import moment from "moment";
 import React, {
   createContext,
