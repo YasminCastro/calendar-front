@@ -40,10 +40,8 @@ const Calendar = () => {
   };
 
   const reminderClickHandler = (reminderId: any) => {
-    console.log(reminderId);
     setReminderId(reminderId);
     setEditReminderModal(true);
-    console.log(editReminderModal);
   };
 
   const selectedMonth = moment(selectedDate).format("MM");
