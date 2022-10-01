@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ModalBox, ModalWrapper, CloseButton } from "./styles";
+import { ModalBox, ModalWrapper, CloseButton, ModalHead } from "./styles";
 import { MenuItem, Select, TextField, Modal, Button } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers";
 import moment from "moment";
@@ -87,10 +87,12 @@ const ReminderModal: React.FC<IProps> = ({
     <ModalWrapper>
       <Modal open={open} onClose={handleClose}>
         <ModalBox>
-          <CloseButton onClick={handleClose}>
-            <AiOutlineClose size={20} />
-          </CloseButton>
-
+          <ModalHead>
+            <h3>Edit reminder</h3>
+            <CloseButton onClick={handleClose}>
+              <AiOutlineClose size={20} />
+            </CloseButton>
+          </ModalHead>
           <form onSubmit={handleSubmit}>
             <TextField
               id="outlined-basic"

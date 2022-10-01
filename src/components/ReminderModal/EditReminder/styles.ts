@@ -25,7 +25,6 @@ export const ModalBox = styled.div`
   background: white;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
 
   form {
     display: flex;
@@ -39,4 +38,12 @@ export const ModalBox = styled.div`
       background-color: #e8d6d5;
     }
   }
+`;
+
+export const ModalHead = styled.div`
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 6px;
 `;

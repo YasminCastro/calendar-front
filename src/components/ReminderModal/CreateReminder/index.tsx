@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ModalBox, ModalWrapper, CloseButton } from "./styles";
+import { ModalBox, CloseButton, ModalHead } from "./styles";
 import { MenuItem, Select, TextField, Modal, Button } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers";
 import moment from "moment";
@@ -48,65 +48,66 @@ const ReminderModal: React.FC<IProps> = ({ open, setOpen, day }) => {
   };
 
   return (
-    <ModalWrapper>
-      <Modal open={open} onClose={handleClose}>
-        <ModalBox>
+    <Modal open={open} onClose={handleClose}>
+      <ModalBox>
+        <ModalHead>
+          <h3>Create reminder</h3>
           <CloseButton onClick={handleClose}>
             <AiOutlineClose size={20} />
           </CloseButton>
+        </ModalHead>
 
-          <form onSubmit={handleSubmit}>
-            <TextField
-              id="outlined-basic"
-              label="Message"
-              variant="outlined"
-              required
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <TextField
-              id="outlined-basic"
-              label="City"
-              variant="outlined"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={color}
-              label="Color"
-              onChange={(e) => setColor(e.target.value)}
-            >
-              <MenuItem value={"#039be5"}>Blue</MenuItem>
-              <MenuItem value={"#0b8043"}>Green</MenuItem>
-              <MenuItem value={"#f6bf26"}>Yellow</MenuItem>
-              <MenuItem value={"#8e24aa"}>Purple</MenuItem>
-            </Select>
-            <TimePicker
-              label="Hour"
-              value={date}
-              onChange={(newValue) => {
-                setDate(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            {errorMessage && (
-              <ErrorMessage className="onSubmitErrorMessage">
-                {errorMessage}
-              </ErrorMessage>
-            )}
-            <Button
-              style={{ background: colors.darkRed }}
-              type="submit"
-              variant="contained"
-            >
-              Save
-            </Button>
-          </form>
-        </ModalBox>
-      </Modal>
-    </ModalWrapper>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            id="outlined-basic"
+            label="Message"
+            variant="outlined"
+            required
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <TextField
+            id="outlined-basic"
+            label="City"
+            variant="outlined"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={color}
+            label="Color"
+            onChange={(e) => setColor(e.target.value)}
+          >
+            <MenuItem value={"#039be5"}>Blue</MenuItem>
+            <MenuItem value={"#0b8043"}>Green</MenuItem>
+            <MenuItem value={"#f6bf26"}>Yellow</MenuItem>
+            <MenuItem value={"#8e24aa"}>Purple</MenuItem>
+          </Select>
+          <TimePicker
+            label="Hour"
+            value={date}
+            onChange={(newValue) => {
+              setDate(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+          {errorMessage && (
+            <ErrorMessage className="onSubmitErrorMessage">
+              {errorMessage}
+            </ErrorMessage>
+          )}
+          <Button
+            style={{ background: colors.darkRed }}
+            type="submit"
+            variant="contained"
+          >
+            Save
+          </Button>
+        </form>
+      </ModalBox>
+    </Modal>
   );
 };
 
