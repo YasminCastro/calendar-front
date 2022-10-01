@@ -17,6 +17,10 @@ const weekDays = [
 const Calendar = () => {
   const { calendar, selectedDate } = useCalendar();
 
+  if (calendar.length === 0) {
+    return <></>;
+  }
+
   const dateClickHandler = (date: any) => {
     console.log(date);
   };
