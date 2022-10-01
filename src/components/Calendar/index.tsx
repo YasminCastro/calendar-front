@@ -1,7 +1,8 @@
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 
 import { useCalendar } from "../../providers/calendarProvider";
+import ReminderModal from "../ReminderModal";
 import { CalendarTable, DayButton, MonthContainer } from "./styles";
 
 const weekDays = [
@@ -16,13 +17,16 @@ const weekDays = [
 
 const Calendar = () => {
   const { calendar, selectedDate, today } = useCalendar();
+  const [openModal, setOpenModal] = useState(false);
+  const [reminderDate, setReminderDate] = useState("");
 
   if (calendar.length === 0) {
     return <></>;
   }
 
   const dateClickHandler = (date: any) => {
-    console.log(date);
+    setOpenModal(true);
+    setReminderDate(date);
   };
 
   const selectedMonth = moment(selectedDate).format("MM");
@@ -74,6 +78,13 @@ const Calendar = () => {
           })}
         </tbody>
       </CalendarTable>
+      {openModal && (
+        <ReminderModal
+          open={openModal}
+          setOpen={setOpenModal}
+          reminderDate={reminderDate}
+        />
+      )}
     </MonthContainer>
   );
 };
