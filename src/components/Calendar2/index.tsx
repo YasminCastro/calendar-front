@@ -2,7 +2,7 @@ import moment from "moment";
 import React from "react";
 
 import { useCalendar } from "../../providers/calendarProvider";
-import { DayButton, MonthContainer } from "./styles";
+import { CalendarTable, DayButton, MonthContainer } from "./styles";
 
 const weekDays = [
   "Sunday",
@@ -26,19 +26,17 @@ const Calendar = () => {
 
   return (
     <MonthContainer>
-      <table>
-        <thead>
-          <tr>
-            {weekDays.map((day: any) => (
-              <th key={day}>{day}</th>
-            ))}
-          </tr>
-        </thead>
+      <CalendarTable>
+        <tr className="weekdays">
+          {weekDays.map((day: any) => (
+            <th key={day}>{day}</th>
+          ))}
+        </tr>
 
         <tbody>
           {calendar.map((week: any) => {
             return (
-              <tr>
+              <tr className="days">
                 {week.days.map((dayObject: any) => {
                   const day = moment(dayObject).format("DD");
                   const month = moment(dayObject).format("MM");
@@ -46,30 +44,29 @@ const Calendar = () => {
 
                   const isThisMonth =
                     month === selectedMonth ? "this-month" : "other-month";
-
                   const isToday = fullDate === today ? "today" : "not-today";
 
                   return (
-                    <th
-                      className={`${isThisMonth} ${isToday}`}
-                      key={`${day}-${month}`}
+                    <DayButton
+                      onClick={(e) => {
+                        dateClickHandler(e.currentTarget.value);
+                      }}
+                      value={fullDate}
                     >
-                      <DayButton
-                        onClick={(e) => {
-                          dateClickHandler(e.currentTarget.value);
-                        }}
-                        value={fullDate}
+                      <td
+                        className={`date ${isThisMonth} ${isToday}`}
+                        key={`${day}-${month}`}
                       >
                         {day}
-                      </DayButton>
-                    </th>
+                      </td>
+                    </DayButton>
                   );
                 })}
               </tr>
             );
           })}
         </tbody>
-      </table>
+      </CalendarTable>
     </MonthContainer>
   );
 };
