@@ -15,7 +15,7 @@ const weekDays = [
 ];
 
 const Calendar = () => {
-  const { calendar, selectedDate } = useCalendar();
+  const { calendar, selectedDate, today } = useCalendar();
 
   if (calendar.length === 0) {
     return <></>;
@@ -26,7 +26,7 @@ const Calendar = () => {
   };
 
   const selectedMonth = moment(selectedDate).format("MM");
-  const today = moment(selectedDate).format("DD-MM-YYYY");
+  const todayDate = moment(today).format("DD-MM-YYYY");
 
   return (
     <MonthContainer>
@@ -50,7 +50,8 @@ const Calendar = () => {
 
                   const isThisMonth =
                     month === selectedMonth ? "this-month" : "other-month";
-                  const isToday = fullDate === today ? "today" : "not-today";
+                  const isToday =
+                    fullDate === todayDate ? "today" : "not-today";
 
                   return (
                     <td

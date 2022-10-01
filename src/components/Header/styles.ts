@@ -57,7 +57,12 @@ export const TodayButton = styled.button`
   }
 `;
 
-export const ArrowButton = styled.div`
+export const ArrowButton = styled.button`
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+
   padding: 6px;
   border-radius: 50%;
   display: flex;

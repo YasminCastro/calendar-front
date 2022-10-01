@@ -74,10 +74,10 @@ export const CalendarTable = styled.table`
   }
 
   /* ============================
-				Mobile Responsiveness
+				Mobile 
    ============================*/
 
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     .weekdays,
     .other-month {
       display: none;
