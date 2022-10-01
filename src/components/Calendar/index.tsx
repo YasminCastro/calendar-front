@@ -1,78 +1,77 @@
-import React, { Fragment } from "react";
-import useCalendarOld from "../../hooks/useCalendarOld";
+import moment from "moment";
+import React from "react";
 
 import { useCalendar } from "../../providers/calendarProvider";
+import { CalendarTable, DayButton, MonthContainer } from "./styles";
+
+const weekDays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 const Calendar = () => {
-  // console.log("OLD ->", old);
-  // console.log("NEW ->", newTeste);
+  const { calendar, selectedDate } = useCalendar();
 
-  const {
-    calendarRows,
-    selectedDate,
-    todayFormatted,
-    daysShort,
-    monthNames,
-    getNextMonth,
-    getPrevMonth,
-  } = useCalendarOld();
+  if (calendar.length === 0) {
+    return <></>;
+  }
 
   const dateClickHandler = (date: any) => {
     console.log(date);
   };
 
+  const selectedMonth = moment(selectedDate).format("MM");
+  const today = moment(selectedDate).format("DD-MM-YYYY");
+
   return (
-    <Fragment>
-      <p>
-        Selected Month:{" "}
-        {`${
-          monthNames[selectedDate.getMonth()]
-        } - ${selectedDate.getFullYear()}`}
-      </p>
-      <table className="table">
-        <thead>
-          <tr>
-            {daysShort.map((day: any) => (
-              <th key={day}>{day}</th>
-            ))}
-          </tr>
-        </thead>
+    <MonthContainer>
+      <CalendarTable>
+        <tr className="weekdays">
+          {weekDays.map((day: any) => (
+            <th key={day}>{day}</th>
+          ))}
+        </tr>
+
         <tbody>
-          {Object.values(calendarRows).map((cols: any) => {
+          {calendar.map((week: any) => {
             return (
-              <tr key={cols[0].date}>
-                {cols.map((col: any) =>
-                  col.date === todayFormatted ? (
+              <tr className="days">
+                {week.days.map((dayObject: any) => {
+                  const day = moment(dayObject).format("DD");
+                  const month = moment(dayObject).format("MM");
+                  const fullDate = moment(dayObject).format("DD-MM-YYYY");
+
+                  const isThisMonth =
+                    month === selectedMonth ? "this-month" : "other-month";
+                  const isToday = fullDate === today ? "today" : "not-today";
+
+                  return (
                     <td
-                      key={col.date}
-                      className={`${col.classes} today`}
-                      onClick={() => dateClickHandler(col.date)}
+                      className={`date ${isThisMonth} ${isToday}`}
+                      key={`${day}-${month}`}
                     >
-                      {col.value}
+                      <DayButton
+                        onClick={(e) => {
+                          dateClickHandler(e.currentTarget.value);
+                        }}
+                        value={fullDate}
+                      >
+                        {day}
+                      </DayButton>
                     </td>
-                  ) : (
-                    <td
-                      key={col.date}
-                      className={col.classes}
-                      onClick={() => dateClickHandler(col.date)}
-                    >
-                      {col.value}
-                    </td>
-                  )
-                )}
+                  );
+                })}
               </tr>
             );
           })}
         </tbody>
-      </table>
-
-      <button className="button" onClick={getPrevMonth}>
-        Prev
-      </button>
-      <button className="button" onClick={getNextMonth}>
-        Next
-      </button>
-    </Fragment>
+      </CalendarTable>
+    </MonthContainer>
   );
 };
 
