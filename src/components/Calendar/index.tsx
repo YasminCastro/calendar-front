@@ -12,7 +12,7 @@ import {
   ReminderButton,
 } from "./styles";
 
-const weekDays = [
+const weekDaysFull = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -21,6 +21,8 @@ const weekDays = [
   "Friday",
   "Saturday",
 ];
+
+const weekDaysSmall = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
 const Calendar = () => {
   const { calendar, selectedDate, today } = useCalendar();
@@ -51,8 +53,13 @@ const Calendar = () => {
     <MonthContainer>
       <CalendarTable>
         <thead>
-          <tr className="weekdays">
-            {weekDays.map((weekday: string) => (
+          <tr className="weekdays weekFull">
+            {weekDaysFull.map((weekday: string) => (
+              <th key={weekday}>{weekday}</th>
+            ))}
+          </tr>
+          <tr className="weekdays weekSmall">
+            {weekDaysSmall.map((weekday: string) => (
               <th key={weekday}>{weekday}</th>
             ))}
           </tr>

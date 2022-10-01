@@ -3,6 +3,14 @@ import { colors } from "../../styles/GlobalStyles";
 
 export const MonthContainer = styled.div`
   margin: 0px 100px 24px 100px;
+
+  @media (max-width: 1400px) {
+    margin: 0px 50px 12px 50px;
+  }
+
+  @media (max-width: 800px) {
+    margin: 0px;
+  }
 `;
 
 export const CalendarTable = styled.table`
@@ -65,7 +73,21 @@ export const CalendarTable = styled.table`
 				Mobile 
    ============================*/
 
-  @media (max-width: 800px) {
+  .weekSmall {
+    display: none;
+  }
+
+  @media (max-width: 650px) {
+    .weekFull {
+      display: none;
+    }
+
+    .weekSmall {
+      display: grid;
+    }
+  }
+
+  /* @media (max-width: 800px) {
     .weekdays,
     .other-month {
       display: none;
@@ -91,7 +113,7 @@ export const CalendarTable = styled.table`
     .date {
       align-self: flex-start;
     }
-  }
+  } */
 `;
 
 export const DayButton = styled.button`

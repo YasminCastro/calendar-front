@@ -6,17 +6,12 @@ export const HeaderWrapper = styled.header`
   max-width: 100vw;
 
   top: 0;
-
-  @media (max-width: 1340px) {
-    padding: 0 24px;
-  }
 `;
 
 export const HeaderContainer = styled.div`
   width: 100%;
 
-  padding: 8px;
-  padding-left: 56px;
+  padding: 8px 56px 8px 56px;
 
   display: flex;
   align-items: center;
@@ -36,8 +31,14 @@ export const HeaderContainer = styled.div`
     color: ${colors.grey500};
   }
 
-  @media (max-width: 460px) {
-    padding: 4px 0px;
+  @media (max-width: 600px) {
+    padding-left: 12px;
+    gap: 10px;
+  }
+
+  @media (max-width: 400px) {
+    padding-left: 2px;
+    gap: 5px;
   }
 `;
 
