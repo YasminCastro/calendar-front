@@ -1,4 +1,4 @@
-import moment from "moment";
+import axios from "axios";
 import React, {
   createContext,
   useContext,
@@ -6,13 +6,12 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { CONFIG } from "../config";
 
 interface IValue {
-  selectedDate: any;
-  setSelectedDate: React.Dispatch<React.SetStateAction<any>>;
-  calendar: any[];
-  setCalendar: React.Dispatch<React.SetStateAction<any[]>>;
-  today: any;
+  setRefreshReminders: React.Dispatch<React.SetStateAction<any>>;
+
+  reminders: any;
 }
 
 const ReminderContext = createContext({} as IValue);
@@ -20,43 +19,29 @@ const ReminderContext = createContext({} as IValue);
 export const ReminderProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
-  const reminder = {
-    message: "",
-    date: "",
-    hour: "",
-    color: "",
-  };
-  const todayDate = moment();
-  const [selectedDate, setSelectedDate] = useState(todayDate);
-  const [today, setToday] = useState(todayDate);
-  const [calendar, setCalendar] = useState([] as any[]);
+  const [reminders, setReminders] = useState([] as any[]);
+  const [refreshReminders, setRefreshReminders] = useState("");
 
   useEffect(() => {
-    const calendarArray = [];
-    const startDay = selectedDate.clone().startOf("month").startOf("week");
-    const endDay = selectedDate.clone().endOf("month").endOf("week");
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(`${CONFIG.BACKEND_URL}`);
 
-    let date = startDay.clone().subtract(1, "day");
+        setReminders(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-    while (date.isBefore(endDay, "day"))
-      calendarArray.push({
-        days: Array(7)
-          .fill(0)
-          .map(() => date.add(1, "day").clone()),
-      });
-
-    setCalendar(calendarArray);
-  }, [selectedDate]);
+    fetchData();
+  }, [refreshReminders]);
 
   const value = useMemo(
     () => ({
-      selectedDate,
-      setSelectedDate,
-      calendar,
-      setCalendar,
-      today,
+      reminders,
+      setRefreshReminders,
     }),
-    [selectedDate, setSelectedDate, calendar, setCalendar, today]
+    [reminders, setRefreshReminders]
   );
 
   return (

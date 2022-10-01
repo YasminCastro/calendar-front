@@ -8,6 +8,7 @@ import { colors } from "../../styles/GlobalStyles";
 import { CONFIG } from "../../config";
 import axios from "axios";
 import { ErrorMessage } from "../../styles/errorMessage";
+import { useReminder } from "../../providers/reminderProvider";
 
 interface IProps {
   open: boolean;
@@ -18,11 +19,12 @@ interface IProps {
 
 const ReminderModal: React.FC<IProps> = ({ open, setOpen, day }) => {
   const handleClose = () => setOpen(false);
-  const [color, setColor] = useState("blue");
+  const [color, setColor] = useState("#039be5");
   const [city, setCity] = useState("");
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [date, setDate] = React.useState<any>(moment(day, "DD-MM-YYYY"));
+  const { setRefreshReminders } = useReminder();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -37,6 +39,7 @@ const ReminderModal: React.FC<IProps> = ({ open, setOpen, day }) => {
         city,
       });
 
+      setRefreshReminders(message);
       setOpen(false);
     } catch (error: any) {
       const rawErrorMessage = error.response.data.message;
@@ -75,8 +78,10 @@ const ReminderModal: React.FC<IProps> = ({ open, setOpen, day }) => {
               label="Color"
               onChange={(e) => setColor(e.target.value)}
             >
-              <MenuItem value={"blue"}>Blue</MenuItem>
-              <MenuItem value={"yellow"}>Yellow</MenuItem>
+              <MenuItem value={"#039be5"}>Blue</MenuItem>
+              <MenuItem value={"#0b8043"}>Green</MenuItem>
+              <MenuItem value={"#f6bf26"}>Yellow</MenuItem>
+              <MenuItem value={"#8e24aa"}>Purple</MenuItem>
             </Select>
             <TimePicker
               label="Hour"

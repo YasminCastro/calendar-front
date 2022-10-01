@@ -2,8 +2,9 @@ import moment from "moment";
 import React, { useState } from "react";
 
 import { useCalendar } from "../../providers/calendarProvider";
+import { useReminder } from "../../providers/reminderProvider";
 import ReminderModal from "../ReminderModal";
-import { CalendarTable, DayButton, MonthContainer } from "./styles";
+import { CalendarTable, DayButton, MonthContainer, Reminder } from "./styles";
 
 const weekDays = [
   "Sunday",
@@ -17,6 +18,7 @@ const weekDays = [
 
 const Calendar = () => {
   const { calendar, selectedDate, today } = useCalendar();
+  const { reminders } = useReminder();
   const [openModal, setOpenModal] = useState(false);
   const [reminderDate, setReminderDate] = useState("");
 
@@ -70,6 +72,17 @@ const Calendar = () => {
                       >
                         {day}
                       </DayButton>
+                      {reminders.map((reminder: any) => {
+                        const date = moment(reminder.date).format("DD-MM-YYYY");
+
+                        if (date === fullDate) {
+                          return (
+                            <Reminder color={reminder.colorHex}>
+                              {reminder.message}
+                            </Reminder>
+                          );
+                        }
+                      })}
                     </td>
                   );
                 })}

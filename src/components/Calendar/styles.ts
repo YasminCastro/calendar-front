@@ -46,19 +46,6 @@ export const CalendarTable = styled.table`
     flex-direction: column;
   }
 
-  .event {
-    flex: 0 0 auto;
-    font-size: 13px;
-    border-radius: 4px;
-    padding: 5px;
-    margin-bottom: 5px;
-    line-height: 14px;
-    background: #e4f2f2;
-    border: 1px solid #b5dbdc;
-    color: #009aaf;
-    text-decoration: none;
-  }
-
   .event-desc {
     color: #666;
     margin: 3px 0 7px 0;
@@ -119,4 +106,16 @@ export const DayButton = styled.button`
 
   display: flex;
   justify-content: center;
+`;
+
+export const Reminder = styled.div<{ color: string }>`
+  flex: 0 0 auto;
+  font-size: 13px;
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 5px;
+  line-height: 14px;
+  background: ${({ color }) => color};
+  color: #ffff;
+  text-decoration: none;
 `;
