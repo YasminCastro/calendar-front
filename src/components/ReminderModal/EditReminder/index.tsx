@@ -1,23 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ModalBox, ModalWrapper, CloseButton } from "./styles";
 import { MenuItem, Select, TextField, Modal, Button } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers";
 import moment from "moment";
 import { AiOutlineClose } from "react-icons/ai";
-import { colors } from "../../styles/GlobalStyles";
-import { CONFIG } from "../../config";
 import axios from "axios";
-import { ErrorMessage } from "../../styles/errorMessage";
-import { useReminder } from "../../providers/reminderProvider";
+import { CONFIG } from "../../../config";
+import { useReminder } from "../../../providers/reminderProvider";
+import { ErrorMessage } from "../../../styles/errorMessage";
+import { colors } from "../../../styles/GlobalStyles";
 
 interface IProps {
   open: boolean;
   setOpen: any;
   reminderDate: string;
+  reminderId: string;
   day: any;
 }
 
-const ReminderModal: React.FC<IProps> = ({ open, setOpen, day }) => {
+const ReminderModal: React.FC<IProps> = ({
+  open,
+  setOpen,
+  day,
+  reminderId,
+}) => {
   const handleClose = () => setOpen(false);
   const [color, setColor] = useState("#039be5");
   const [city, setCity] = useState("");
@@ -26,20 +32,50 @@ const ReminderModal: React.FC<IProps> = ({ open, setOpen, day }) => {
   const [date, setDate] = React.useState<any>(moment(day, "DD-MM-YYYY"));
   const { setRefreshReminders } = useReminder();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(`${CONFIG.BACKEND_URL}/${reminderId}`);
+        setCity(data.city);
+        setColor(data.colorHex);
+        setMessage(data.message);
+        setDate(moment(data.date));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [open]);
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
       setErrorMessage("");
 
-      await axios.post(`${CONFIG.BACKEND_URL}`, {
+      await axios.put(`${CONFIG.BACKEND_URL}/${reminderId}`, {
         message,
         date,
         colorHex: color,
         city,
       });
 
-      setRefreshReminders(message);
+      setRefreshReminders(`update ${reminderId}`);
+      setOpen(false);
+    } catch (error: any) {
+      const rawErrorMessage = error.response.data.message;
+      setErrorMessage(rawErrorMessage || "Error try again later.");
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      setErrorMessage("");
+
+      await axios.delete(`${CONFIG.BACKEND_URL}/${reminderId}`);
+
+      setRefreshReminders(`delete ${reminderId}`);
       setOpen(false);
     } catch (error: any) {
       const rawErrorMessage = error.response.data.message;
@@ -86,9 +122,7 @@ const ReminderModal: React.FC<IProps> = ({ open, setOpen, day }) => {
             <TimePicker
               label="Hour"
               value={date}
-              onChange={(newValue) => {
-                setDate(newValue);
-              }}
+              onChange={(newValue) => setDate(newValue)}
               renderInput={(params) => <TextField {...params} />}
             />
             {errorMessage && (
@@ -102,6 +136,16 @@ const ReminderModal: React.FC<IProps> = ({ open, setOpen, day }) => {
               variant="contained"
             >
               Save
+            </Button>
+            <Button
+              style={{
+                color: colors.darkRed,
+                border: `1px solid ${colors.darkRed}`,
+              }}
+              onClick={() => handleDelete()}
+              variant="outlined"
+            >
+              Delete
             </Button>
           </form>
         </ModalBox>

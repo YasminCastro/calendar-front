@@ -3,7 +3,8 @@ import React, { useState } from "react";
 
 import { useCalendar } from "../../providers/calendarProvider";
 import { useReminder } from "../../providers/reminderProvider";
-import ReminderModal from "../ReminderModal";
+import CreateReminder from "../ReminderModal/CreateReminder";
+import EditReminder from "../ReminderModal/EditReminder";
 import {
   CalendarTable,
   DayButton,
@@ -24,16 +25,25 @@ const weekDays = [
 const Calendar = () => {
   const { calendar, selectedDate, today } = useCalendar();
   const { reminders } = useReminder();
-  const [openModal, setOpenModal] = useState(false);
+  const [createReminderModal, setCreateReminderModal] = useState(false);
+  const [editReminderModal, setEditReminderModal] = useState(false);
   const [reminderDate, setReminderDate] = useState("");
+  const [reminderId, setReminderId] = useState("");
 
   if (calendar.length === 0) {
     return <></>;
   }
 
   const dateClickHandler = (date: any) => {
-    setOpenModal(true);
+    setCreateReminderModal(true);
     setReminderDate(date);
+  };
+
+  const reminderClickHandler = (reminderId: any) => {
+    console.log(reminderId);
+    setReminderId(reminderId);
+    setEditReminderModal(true);
+    console.log(editReminderModal);
   };
 
   const selectedMonth = moment(selectedDate).format("MM");
@@ -85,7 +95,7 @@ const Calendar = () => {
                             <ReminderButton
                               color={reminder.colorHex}
                               onClick={(e) => {
-                                dateClickHandler(e.currentTarget.value);
+                                reminderClickHandler(e.currentTarget.value);
                               }}
                               value={reminder._id}
                             >
@@ -102,12 +112,22 @@ const Calendar = () => {
           })}
         </tbody>
       </CalendarTable>
-      {openModal && (
-        <ReminderModal
-          open={openModal}
-          setOpen={setOpenModal}
+      {createReminderModal && (
+        <CreateReminder
+          open={createReminderModal}
+          setOpen={setCreateReminderModal}
           reminderDate={reminderDate}
           day={reminderDate}
+        />
+      )}
+
+      {editReminderModal && (
+        <EditReminder
+          open={editReminderModal}
+          setOpen={setEditReminderModal}
+          reminderDate={reminderDate}
+          day={reminderDate}
+          reminderId={reminderId}
         />
       )}
     </MonthContainer>
