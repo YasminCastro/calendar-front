@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { colors } from "../../styles/GlobalStyles";
 
 export const MonthContainer = styled.div`
   margin: 0px 100px 24px 100px;
@@ -11,7 +10,8 @@ export const CalendarTable = styled.table`
   grid-template-columns: repeat(7, 1fr);
 
   tr,
-  tbody {
+  tbody,
+  thead {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -115,4 +115,7 @@ export const DayButton = styled.button`
   font: inherit;
   cursor: pointer;
   outline: inherit;
+
+  display: flex;
+  justify-content: center;
 `;

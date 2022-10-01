@@ -31,11 +31,13 @@ const Calendar = () => {
   return (
     <MonthContainer>
       <CalendarTable>
-        <tr className="weekdays">
-          {weekDays.map((day: any) => (
-            <th key={day}>{day}</th>
-          ))}
-        </tr>
+        <thead>
+          <tr className="weekdays">
+            {weekDays.map((day: any) => (
+              <th key={day}>{day}</th>
+            ))}
+          </tr>
+        </thead>
 
         <tbody>
           {calendar.map((week: any) => {
