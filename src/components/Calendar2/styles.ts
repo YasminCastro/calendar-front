@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colors } from "../../styles/GlobalStyles";
 
 export const MonthContainer = styled.div`
-  margin: 0px 104px;
+  margin: 0px 100px 24px 100px;
 `;
 
 export const CalendarTable = styled.table`
@@ -40,7 +40,7 @@ export const CalendarTable = styled.table`
   }
 
   td {
-    min-height: 180px;
+    min-height: 14vh;
     display: flex;
     flex-direction: column;
   }
