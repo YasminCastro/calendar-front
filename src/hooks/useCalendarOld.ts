@@ -29,20 +29,25 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
     selectedDate.getMonth() + 1,
     0
   );
+
   const prevMonthLastDate = new Date(
     selectedDate.getFullYear(),
     selectedDate.getMonth(),
     0
   );
   const daysInMonth = selectedMonthLastDate.getDate();
+
   const firstDayInMonth = new Date(
     selectedDate.getFullYear(),
     selectedDate.getMonth(),
     1
   ).getDay();
+
   const startingPoint = daysInWeek.indexOf(firstDayInMonth) + 1;
+
   let prevMonthStartingPoint =
     prevMonthLastDate.getDate() - daysInWeek.indexOf(firstDayInMonth) + 1;
+
   let currentMonthCounter = 1;
   let nextMonthCounter = 1;
   const rows = 6;
@@ -132,7 +137,12 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
         new Date(prevValue.getFullYear(), prevValue.getMonth() + 1, 1)
     );
   };
-
+  console
+    .log
+    // calendarRows
+    // getPrevMonth
+    // getNextMonth
+    ();
   return {
     daysShort,
     monthNames,

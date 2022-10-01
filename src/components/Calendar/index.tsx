@@ -4,7 +4,9 @@ import useCalendarOld from "../../hooks/useCalendarOld";
 import { useCalendar } from "../../providers/calendarProvider";
 
 const Calendar = () => {
-  const {} = useCalendar();
+  // console.log("OLD ->", old);
+  // console.log("NEW ->", newTeste);
+
   const {
     calendarRows,
     selectedDate,
