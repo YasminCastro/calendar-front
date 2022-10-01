@@ -83,6 +83,7 @@ const Calendar = () => {
           open={openModal}
           setOpen={setOpenModal}
           reminderDate={reminderDate}
+          day={reminderDate}
         />
       )}
     </MonthContainer>

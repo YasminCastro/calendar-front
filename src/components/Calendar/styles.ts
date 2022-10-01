@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../styles/GlobalStyles";
 
 export const MonthContainer = styled.div`
   margin: 0px 100px 24px 100px;
@@ -26,7 +27,7 @@ export const CalendarTable = styled.table`
   }
 
   .weekdays {
-    background: #8e352e;
+    background: ${colors.darkRed};
   }
 
   .weekdays th {

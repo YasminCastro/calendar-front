@@ -14,6 +14,8 @@ export const colors = {
   grey800: "#4f4f4f",
   grey850: "#414141",
   grey900: "#333333",
+
+  darkRed: "#8e352e",
 };
 
 export default createGlobalStyle`
