@@ -36,11 +36,11 @@ export default class MyDocument extends Document {
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link rel="shortcut icon" href="/favicon.png" />
-          <link rel="icon" href="/favicon.png" />
+          <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="icon" href="/favicon.ico" />
           <link rel="manifest" href="/manifest.json" />
 
-          <meta name="application-name" content="Dictionary" />
+          <meta name="application-name" content="Calendar" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
             name="apple-mobile-web-app-status-bar-style"
