@@ -86,34 +86,6 @@ export const CalendarTable = styled.table`
       display: grid;
     }
   }
-
-  /* @media (max-width: 800px) {
-    .weekdays,
-    .other-month {
-      display: none;
-    }
-
-    li {
-      height: auto !important;
-      border: 1px solid #ededed;
-      width: 100%;
-      padding: 10px;
-      margin-bottom: -1px;
-    }
-
-    tr,
-    tbody {
-      grid-template-columns: 1fr;
-    }
-
-    tr {
-      grid-column: 1 / 2;
-    }
-
-    .date {
-      align-self: flex-start;
-    }
-  } */
 `;
 
 export const DayButton = styled.button`
