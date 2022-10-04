@@ -1,4 +1,4 @@
-# Calendar backend
+# Calendar frontend
 
 O escopo implementado foi os de número 1, 2, 3, 4, 5, 6, 7, 9, 11 e 13.
 
